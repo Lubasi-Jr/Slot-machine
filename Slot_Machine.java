@@ -57,9 +57,15 @@ public class Slot_Machine {
             int num = rand.nextInt(5);
             System.out.print(images[num]);
             display.add(images[num]);
+            try {
+                Thread.sleep(800); //Print the images slower, mimicing a slot machine
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             
 
         }
+        System.out.println();
         
 
         if( display.get(0).equalsIgnoreCase(display.get(1)) && display.get(1).equalsIgnoreCase(display.get(2)) ){
@@ -98,6 +104,7 @@ public class Slot_Machine {
 
             if (!(Character.isDigit(choice.charAt(0)))) {
                 System.out.println("Invalid entry");
+                System.out.println();
                 //continue;
                 
             }
@@ -106,6 +113,7 @@ public class Slot_Machine {
                 int option = Integer.parseInt(choice);
                 if(option<1 || option>4){
                     System.out.println("Invalid entry");
+                    System.out.println();
                     continue;
                 }
                 else if (option == 4){
@@ -129,6 +137,7 @@ public class Slot_Machine {
                     int amount = money.nextInt();
                     if(amount > obj1.balance){
                         System.out.println("Insufficient funds");
+                        System.out.println();
                     }
                     else{
                         obj1.withdraw(amount);
@@ -151,6 +160,7 @@ public class Slot_Machine {
 
         }
         scn.close();
+        money.close();
         
         
 
