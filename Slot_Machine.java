@@ -1,5 +1,6 @@
 import java.util.*;
 import java.lang.*;
+import java.util.random.*;
 
 public class Slot_Machine {
     public String[] images = {"Fish","Basketball","Heart","Hat","Drink"};
@@ -38,6 +39,23 @@ public class Slot_Machine {
 
     public void deposit(int amount){
         this.balance = this.balance+amount;
+    }
+
+    public void withdraw(int amount){
+        this.balance = this.balance-amount;
+        
+    }
+
+    public void spin(){
+        Random rand = new Random();
+
+        for(int i =0;i<3;i++){
+            int num = rand.nextInt(5);
+            System.out.print(images[num]);
+            
+
+        }
+        System.out.println();
     }
 
     
@@ -79,6 +97,26 @@ public class Slot_Machine {
                     System.out.println("Enter amount:-");
                     int amount = money.nextInt();
                     obj1.deposit(amount);
+
+                    
+
+                }
+                else if(option == 3 ){ 
+                    System.out.println("Enter amount:-");
+                    int amount = money.nextInt();
+                    if(amount > obj1.balance){
+                        System.out.println("Insufficient funds");
+                    }
+                    else{
+                        obj1.withdraw(amount);
+                    }
+
+                    
+
+                }
+
+                else if(option == 1 ){ 
+                    obj1.spin();
 
                     
 
