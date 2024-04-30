@@ -36,12 +36,17 @@ public class Slot_Machine {
 
     }
 
+    public void deposit(int amount){
+        this.balance = this.balance+amount;
+    }
+
     
     
 
     public static void main(String[] args) {
         Slot_Machine obj1 = new Slot_Machine();
         Scanner scn = new Scanner(System.in);
+        Scanner money = new Scanner(System.in);
         String choice = "";
 
         while (true){
@@ -69,9 +74,13 @@ public class Slot_Machine {
                     break;
     
                 }
-                else{
-                    System.out.println();
-                    System.out.println("Your choice is: "+option);
+                //Proper options
+                else if(option == 2 ){ 
+                    System.out.println("Enter amount:-");
+                    int amount = money.nextInt();
+                    obj1.deposit(amount);
+
+                    
 
                 }
     
