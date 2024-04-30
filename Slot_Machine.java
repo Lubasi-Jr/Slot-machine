@@ -3,14 +3,17 @@ import java.lang.*;
 import java.util.random.*;
 
 public class Slot_Machine {
-    public String[] images = {"Fish","Basketball","Heart","Hat","Drink"};
+    public String[] images = {"Fish","Basketball","Heart","Peacock","Drink"};
 
     public String[] colours = {"\u001B[31m","\u001B[32m","\u001B[33m","\u001B[45m","\u001B[46m"};
 
     String RESET = "\u001B[0m";
+
+    
     
 
     public int balance;
+    Random rand = new Random();
 
     public Slot_Machine(){
         this.balance = 0;
@@ -47,14 +50,34 @@ public class Slot_Machine {
     }
 
     public void spin(){
-        Random rand = new Random();
+        ArrayList<String> display = new ArrayList<>(); //Create a new array each time the spin method is called
+        double multiplier = 0; //multiplier if spin loses
 
         for(int i =0;i<3;i++){
             int num = rand.nextInt(5);
             System.out.print(images[num]);
+            display.add(images[num]);
             
 
         }
+        
+
+        if( display.get(0).equalsIgnoreCase(display.get(1)) && display.get(1).equalsIgnoreCase(display.get(2)) ){
+            //jackpot
+            multiplier = 10;
+        }
+        else{
+            for (String img : display) {
+                int occurence = Collections.frequency(display, img); //How many times the image is occurs in the row
+                if(occurence == 2){
+                    multiplier = 2.5;
+                    break; //Break loop cause we now it is not a jackpot but has an image appearing twice
+                }
+                //If if statement above is never met, then row does not have a Jackpot nor twin images. So multiplier remains at 0
+                
+            }
+        }
+        System.out.println("Multiplier: "+multiplier);
         System.out.println();
     }
 
@@ -123,6 +146,7 @@ public class Slot_Machine {
                 }
     
             }
+            System.out.println();
             
 
         }
