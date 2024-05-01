@@ -7,12 +7,14 @@ public class Slot_Machine {
 
     public String[] colours = {"\u001B[31m","\u001B[32m","\u001B[33m","\u001B[45m","\u001B[46m"};
 
+    double multiplier;
+
     String RESET = "\u001B[0m";
 
     
     
 
-    public int balance;
+    public double balance;
     Random rand = new Random();
 
     public Slot_Machine(){
@@ -27,9 +29,6 @@ public class Slot_Machine {
 
     }
 
-    public int show_balance(){
-        return this.balance;
-    }
     public void colour(){
         String entry;
         for(int i =0;i<images.length;i++){
@@ -51,7 +50,7 @@ public class Slot_Machine {
 
     public void spin(){
         ArrayList<String> display = new ArrayList<>(); //Create a new array each time the spin method is called
-        double multiplier = 0; //multiplier if spin loses
+        multiplier = 0; //multiplier if spin loses
 
         for(int i =0;i<3;i++){
             int num = rand.nextInt(5);
@@ -70,6 +69,8 @@ public class Slot_Machine {
 
         if( display.get(0).equalsIgnoreCase(display.get(1)) && display.get(1).equalsIgnoreCase(display.get(2)) ){
             //jackpot
+            System.out.println("JACKPOT!!!");
+            //System.out.println(Character.toString(0x1F60E));
             multiplier = 10;
         }
         else{
@@ -83,8 +84,30 @@ public class Slot_Machine {
                 
             }
         }
-        System.out.println("Multiplier: "+multiplier);
+        //System.out.println("Multiplier: "+multiplier);
+        winnings(multiplier);
         System.out.println();
+        //CALL WINNNG FUNCTION
+
+    }
+
+    public void winnings(double mult){
+        if(!(mult>0)){ //You lost
+
+            System.out.println("Unfortunately, you lost all your money");
+            balance = 0;
+            System.out.println();
+
+
+        }
+        else{
+            double won = balance*mult;
+            double profit = won-balance;
+            balance = won;
+            System.out.println("Congratulations, you won "+profit);
+            System.out.println();
+
+        }
     }
 
     
@@ -101,6 +124,8 @@ public class Slot_Machine {
             System.out.println("Enter an option:-\n1)Spin\n2)Deposit\n3)Withdraw\n4)Quit ");
             System.out.println("Balance: "+obj1.balance);
             choice = scn.nextLine();
+
+            
 
             if (!(Character.isDigit(choice.charAt(0)))) {
                 System.out.println("Invalid entry");
@@ -148,7 +173,15 @@ public class Slot_Machine {
                 }
 
                 else if(option == 1 ){ 
-                    obj1.spin();
+                    
+
+                    if(obj1.balance == 0){
+                        System.out.println("Can not spin with no money. Please deposit");
+                    }
+                    else{
+                        obj1.spin();
+                    } 
+                    
 
                     
 
